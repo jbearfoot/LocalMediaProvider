@@ -11,6 +11,7 @@
     <AssemblyName>LocalMediaProvider</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -153,9 +154,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LocalMediaProvider\CustomMediaRepositoryDescriptor.cs" />
-    <Compile Include="LocalMediaProvider\LocalMediaProviderInitialization.cs" />
-    <Compile Include="LocalMediaProvider\LocalFileMappedProvider.cs" />
+    <None Include="LocalMediaProvider\CustomMediaRepositoryDescriptor.cs.pp" />
+    <None Include="LocalMediaProvider\LocalMediaProviderInitialization.cs.pp" />
+    <None Include="LocalMediaProvider\LocalFileMappedProvider.cs.pp" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
