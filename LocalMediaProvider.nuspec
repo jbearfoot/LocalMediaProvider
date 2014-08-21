@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>LocalMediaProvider</id>
+    <version>0.0.1</version>
+    <title>Sample media provider</title>
+    <authors>Johan Björnfot</authors>
+    <owners>Johan Björnfot</owners>
+    <iconUrl>http://www.episerver.com/Framework/Styles/Images/Products/Integration.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A media provider that maps in a local filesystem in to EPiServer CMS.</description>
+    <copyright></copyright>
+    <tags></tags>
+	  <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Web" targetFramework="net40" />
+      <frameworkAssembly assemblyName="System.Configuration" targetFramework="net40" />
+    </frameworkAssemblies>
+    <dependencies>
+      <dependency id="EPiServer.CMS.Core" version="[7.13.0,8.0)" />
+      <dependency id="EPiServer.CMS.UI" version="[7.11.1,8.0)" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="LocalMediaProvider\lang\custom.xml" target="content\lang\custom.xml" />
+    <file src="LocalMediaProvider\LocalMediaProvider\CustomMediaRepositoryDescriptor.cs.pp" target="content\LocalMediaProvider" />
+    <file src="LocalMediaProvider\LocalMediaProvider\LocalFileMappedProvider.cs.pp" target="content\LocalMediaProvider" />
+    <file src="LocalMediaProvider\LocalMediaProvider\LocalMediaProviderInitialization.cs.pp" target="content\LocalMediaProvider" />
+  </files>
+</package>

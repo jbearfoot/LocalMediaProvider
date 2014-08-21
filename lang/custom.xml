@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<languages>
+  <language name="English" id="en">
+    <episerver>
+      <cms>
+        <components>
+          <custommedia>
+            <command>
+              <download>Download</download>
+              <label>Upload files</label>
+              <openineditor>Open in Image Editor</openineditor>
+            </command>
+            <description>Media management</description>
+            <dropareatitle>Upload files by dropping them here or click to browse</dropareatitle>
+            <linktocreateitem>Upload Files</linktocreateitem>
+            <nocontent>This folder does not contain any media</nocontent>
+            <title>Local Media</title>
+            <translationfailedmessage>Failed to translate the content "{0}". You might not have access rights for this action.</translationfailedmessage>
+            <validation>
+              <accessdenied>Access denied</accessdenied>
+              <fileexists>The file "{0}" already exists</fileexists>
+              <missingfileextension>The file "{0}" has no file extension</missingfileextension>
+              <nocontenttype>There is no content type associated with the "{0}" file extension.</nocontenttype>
+              <nocreatepermission>You do not have access rights to upload this type of file.</nocreatepermission>
+            </validation>
+          </custommedia>
+        </components>
+      </cms>
+    </episerver>
+  </language>
+</languages>
