@@ -43,7 +43,7 @@ namespace $rootnamespace$.LocalMediaProvider
             var mappedItem = _identityMappingService.Get(contentLink);
             if (mappedItem != null)
             {
-                var fileSytemPath = Path.Combine(RootPath, RemoveStartingSlash(mappedItem.ExternalIdentifier.LocalPath).Replace('/','\\'));
+                var fileSytemPath = GetPhysicalPath(mappedItem.ExternalIdentifier);
                 if (Directory.Exists(fileSytemPath))
                 {
                     return CreateContentFolder(mappedItem, fileSytemPath);
@@ -68,7 +68,7 @@ namespace $rootnamespace$.LocalMediaProvider
             if (!EntryPoint.CompareToIgnoreWorkID(contentLink))
             {
                 var mappedIdentity = _identityMappingService.Get(contentLink);
-                currentPath = Path.Combine(RootPath, RemoveStartingSlash(mappedIdentity.ExternalIdentifier.LocalPath).Replace('/','\\'));
+                currentPath = GetPhysicalPath(mappedIdentity.ExternalIdentifier);
             }
 
             var directoryInfo = new DirectoryInfo(currentPath);
@@ -177,11 +177,15 @@ namespace $rootnamespace$.LocalMediaProvider
             var changeTrackable = content as IChangeTrackable;
             if (changeTrackable != null)
             {
-                changeTrackable.Changed = DateTime.Now;
+                changeTrackable.Changed = fileSystemInfo.LastWriteTime;
             }
 
-
             return content;
+        }
+
+		private string GetPhysicalPath(Uri externalIdentifier)
+        {
+            return Path.Combine(RootPath, RemoveStartingSlash(externalIdentifier.LocalPath).Replace('/', '\\'));
         }
         
     }
