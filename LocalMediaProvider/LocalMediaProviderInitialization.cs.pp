@@ -1,31 +1,51 @@
-﻿using EPiServer;
+﻿using System.Collections.Specialized;
+using System.Configuration;
+using System.Web;
+using System.Web.Routing;
+using EPiServer;
 using EPiServer.Configuration;
 using EPiServer.Core;
 using EPiServer.DataAccess;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.Security;
+using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Web;
-using System.Web.Routing;
 
 namespace $rootnamespace$.LocalMediaProvider
 {
     [ModuleDependency(typeof(EPiServer.Web.InitializationModule))]
     public class LocalMediaProviderInitialization : IInitializableModule
     {
-        public const string ProviderName = "localfiles";
+        private static string _providerName;
 
+        public static string ProviderName
+        {
+            get
+            {
+                if(!string.IsNullOrWhiteSpace(_providerName))
+                    return _providerName;
+
+                if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["LocalMediaContentProviderName"]))
+                {
+                    _providerName = ConfigurationManager.AppSettings["LocalMediaContentProviderName"];
+                }
+                else
+                {
+                    _providerName = "localmedia";
+                }
+                return _providerName;
+            }
+            set { _providerName = value; }
+        }
+        
         public void Initialize(InitializationEngine context)
         {
             //Create provider root if it not exist
-            var contentRepository = context.Locate.ContentRepository();
-            var fileRoot = contentRepository.GetBySegment(SiteDefinition.Current.RootPage, ProviderName, LanguageSelector.AutoDetect(true));
+            IContentRepository contentRepository = ServiceLocator.Current.GetInstance<IContentRepository>();
+            IContent fileRoot = contentRepository.GetBySegment(SiteDefinition.Current.RootPage, ProviderName, LanguageSelector.AutoDetect(true));
+            
             if (fileRoot == null)
             {
                 fileRoot = contentRepository.GetDefault<ContentFolder>(SiteDefinition.Current.RootPage);
@@ -34,10 +54,23 @@ namespace $rootnamespace$.LocalMediaProvider
             }
 
             //Register provider
+            const string FullSupportString = "Create,Edit,Delete,Move,Copy,MultiLanguage,PageFolder,Search,Security,Wastebasket";
+            //const string almostFullSupportString = "Create";  //,Edit,Delete,Move,Copy,PageFolder,Search,Wastebasket";
+
             var contentProviderManager = context.Locate.Advanced.GetInstance<IContentProviderManager>();
-            var configValues = new NameValueCollection();
-            configValues.Add(ContentProviderElement.EntryPointString, fileRoot.ContentLink.ToString());
-            configValues.Add("rootPath", "C:\\");
+            NameValueCollection configValues = new NameValueCollection
+            {
+                {
+                    ContentProviderElement.EntryPointString, fileRoot.ContentLink.ToString()
+                },
+                {
+                    "rootPath", ConfigurationManager.AppSettings["LocalMediaContentProviderPath"]
+                },
+                {
+                    ContentProviderElement.CapabilitiesString, FullSupportString
+                }
+
+            };
             var provider = context.Locate.Advanced.GetInstance<LocalMediaProvider>();
             provider.Initialize(ProviderName, configValues);
             contentProviderManager.ProviderMap.AddProvider(provider);
@@ -45,15 +78,15 @@ namespace $rootnamespace$.LocalMediaProvider
             //Since we have our structure outside asset root we register routes for it
             RouteTable.Routes.MapContentRoute(
                 name: "LocalMedia",
-                url: "localfiles/{node}/{partial}/{action}",
+                url: ProviderName+ "/{node}/{partial}/{action}",
                 defaults: new { action = "index" },
-                contentRootResolver: (s) => fileRoot.ContentLink);
+                contentRootResolver: s => fileRoot.ContentLink);
 
             RouteTable.Routes.MapContentRoute(
                 name: "LocalMediaEdit",
-                url: CmsHomePath + "localfiles/{language}/{medianodeedit}/{partial}/{action}",
+                url: CmsHomePath + ProviderName + "/{language}/{medianodeedit}/{partial}/{action}",
                 defaults: new { action = "index" },
-                contentRootResolver: (s) => fileRoot.ContentLink);
+                contentRootResolver: s => fileRoot.ContentLink);
         }
 
         private static string CmsHomePath
@@ -65,10 +98,7 @@ namespace $rootnamespace$.LocalMediaProvider
             }
         }
 
-        public void Preload(string[] parameters)
-        {}
-
-        public void Uninitialize(EPiServer.Framework.Initialization.InitializationEngine context)
-        {}
+        public void Uninitialize(InitializationEngine context)
+        { }
     }
 }
