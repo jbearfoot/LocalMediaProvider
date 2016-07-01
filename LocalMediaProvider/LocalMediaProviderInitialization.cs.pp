@@ -13,7 +13,7 @@ using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
 
-namespace LocalMediaProvider.LocalMediaProvider
+namespace $rootnamespace$.LocalMediaProvider
 {
     [ModuleDependency(typeof(EPiServer.Web.InitializationModule))]
     public class LocalMediaProviderInitialization : IInitializableModule

@@ -169,11 +169,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Compile Include="LocalMediaProvider\CustomMediaMainNavigationComponent.cs" />
-    <Compile Include="LocalMediaProvider\CustomMediaRepositoryDescriptor.cs" />
-    <Compile Include="LocalMediaProvider\LocalMediaProvider.cs" />
-    <Compile Include="LocalMediaProvider\LocalMediaProviderInitialization.cs" />
-    <Compile Include="LocalMediaProvider\LocalMediaProviderJob.cs" />
+    <None Include="LocalMediaProvider\CustomMediaMainNavigationComponent.cs.pp" />
+    <None Include="LocalMediaProvider\CustomMediaRepositoryDescriptor.cs.pp" />
+    <None Include="LocalMediaProvider\LocalMediaProvider.cs.pp" />
+    <None Include="LocalMediaProvider\LocalMediaProviderInitialization.cs.pp" />
+    <None Include="LocalMediaProvider\LocalMediaProviderJob.cs.pp" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,7 @@ using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
 
-namespace LocalMediaProvider.LocalMediaProvider
+namespace $rootnamespace$.LocalMediaProvider
 {
     public class LocalMediaProvider : ContentProvider, ILocalMediaProvider
     {

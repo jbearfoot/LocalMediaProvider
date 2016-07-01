@@ -4,7 +4,7 @@ using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Shell;
 
-namespace LocalMediaProvider.LocalMediaProvider
+namespace $rootnamespace$.LocalMediaProvider
 {
     [ServiceConfiguration(typeof(IContentRepositoryDescriptor))]
     public class CustomMediaRepositoryDescriptor : MediaRepositoryDescriptor
