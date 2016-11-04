@@ -158,7 +158,7 @@ namespace $rootnamespace$.LocalMediaProvider
                         {
                             Path = f.FullName,
                             Uri = MappedIdentity.ConstructExternalIdentifier(ProviderKey, RemoveStartingSlash(f.FullName.Remove(0, RootPath.Length).Replace('\\', '/')))
-                        });
+                        }).ToList();
                 var mappedIdentities = _identityMappingService.List(mappedFileSystemItems.Select(f => f.Uri), true)
                     .Select(m => new
                     {

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <package >
   <metadata>
     <id>LocalMediaProvider</id>
@@ -16,14 +16,16 @@
       <frameworkAssembly assemblyName="System.Configuration" targetFramework="net40" />
     </frameworkAssemblies>
     <dependencies>
-      <dependency id="EPiServer.CMS.Core" version="[7.13.0,8.0)" />
-      <dependency id="EPiServer.CMS.UI" version="[7.11.1,8.0)" />
+      <dependency id="EPiServer.CMS.Core" version="[9.0,10.0)" />
+      <dependency id="EPiServer.CMS.UI" version="[9.0,10.0)" />
     </dependencies>
   </metadata>
   <files>
     <file src="LocalMediaProvider\lang\custom.xml" target="content\lang\custom.xml" />
     <file src="LocalMediaProvider\LocalMediaProvider\CustomMediaRepositoryDescriptor.cs.pp" target="content\LocalMediaProvider" />
-    <file src="LocalMediaProvider\LocalMediaProvider\LocalFileMappedProvider.cs.pp" target="content\LocalMediaProvider" />
+    <file src="LocalMediaProvider\LocalMediaProvider\LocalMediaProvider.cs.pp" target="content\LocalMediaProvider" />
     <file src="LocalMediaProvider\LocalMediaProvider\LocalMediaProviderInitialization.cs.pp" target="content\LocalMediaProvider" />
+    <file src="LocalMediaProvider\LocalMediaProvider\CustomMediaMainNavigationComponent.cs.pp" target="content\LocalMediaProvider" />
+    <file src="LocalMediaProvider\LocalMediaProvider\LocalMediaProviderJob.cs.pp" target="content\LocalMediaProvider" />
   </files>
 </package>
